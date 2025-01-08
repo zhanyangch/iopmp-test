@@ -1,0 +1,17 @@
+Requirement: Toolchain support "with-cmodel=medany"
+
+1. Get QEMU IOPMP test branch
+	git clone -b iopmp_patch_v9_test https://github.com/zhanyangch/qemu.git
+2. build qemu
+	cd <qemu>
+	./configure --target-list=riscv64-softmmu
+	cd <qemu>/build
+	make
+3. compile test binary
+	cd <iopmp-test>/build
+	export CROSS_COMPILE=riscv64-unknown-elf-
+	make
+3. Modify 'qemu_folder = <qemu>', 'testcase_folder = <iopmp-test>' in run.py
+4. Execute run.py
+	cd <iopmp-test>/script
+	python3 run.py
