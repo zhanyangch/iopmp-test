@@ -13,12 +13,7 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
-#define DMA_RRID              1
-
 #define ARRAY_SIZE            64
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 
@@ -35,9 +30,8 @@ RISCV_IOPMP_OPS *iopmp_ops;
 extern RISCV_IOPMP_OPS riscv_iopmp_ops;
 int CPU_MD[] = {0, 1, 2};
 
-#define IOPMPDMA_STATUS_COMPLETE 1
+#define DMA_STATUS_COMPLETE 1
 #define DMA_STATUS_ERROR    2
-
 
 void iopmp_irq_init() {
 	plic_enable_interrupt(IRQ_IOPMP_SOURCE, 1);
@@ -173,7 +167,7 @@ int main(void)
 	no_w = iopmp_ops->get_no_w(DEV_IOPMP1);
 	printf("no_w %d\n", no_w);
 
-	TEST_RW_Ptr = (unsigned char *)(RAM_BASE + 0x4000000);
+	TEST_RW_Ptr = (unsigned char *)(IOPMP1_REGION_BASE);
 	for(int i=0; i<0x100; i++){
 		*(TEST_RW_Ptr + i) = i;
 	}
@@ -232,7 +226,7 @@ int main(void)
 	iopmp_ops->resume_transaction(DEV_IOPMP1);
 	while (dma_get_status() == 0);
 	dma_stat = dma_get_status();
-	if (dma_stat != IOPMPDMA_STATUS_COMPLETE) {
+	if (dma_stat != DMA_STATUS_COMPLETE) {
 		printf("Failure: DMA status is not complete\n");
 		while (1);
 	}
@@ -261,8 +255,8 @@ int main(void)
 		cnt++;
 	}
 	printf("resume transcation by RRIDSCP\n");
-	iopmp_ops->rridscp_op(DEV_IOPMP1, 1, RRIDSCP_OP_NO_STALL);
-	while (DEV_DMA->STATUS == 0);
+	iopmp_ops->rridscp_op(DEV_IOPMP1, DMA_RRID, RRIDSCP_OP_NO_STALL);
+	while (dma_get_status() == 0);
 	dma_stat = dma_get_status();
 	if (dma_stat != DMA_STATUS_ERROR) {
 		printf("Failure: DMA status is not ERROR\n");

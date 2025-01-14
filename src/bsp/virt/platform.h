@@ -20,4 +20,10 @@
 #define RAM_SIZE              0x08000000 //128Mib
 #define STACK_BASE            0x84000000
 #define STACK_SIZE            0x01000000
+#define IOPMP1_REGION_BASE    0x84000000
+
+/* RRID list */
+#define CPU_RRID              0
+#define DMA_RRID              1
+
 #endif

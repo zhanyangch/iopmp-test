@@ -11,9 +11,6 @@
 
 #define printf(arg...) do { char str[0x100]; sprintf(str, ##arg); uart_puts(str); } while (0)
 
-/* RRID list */
-#define CPU_RRID              0
-
 #define ARRAY_SIZE            64
 
 volatile int bus_error_done, iopmp_isr_done;

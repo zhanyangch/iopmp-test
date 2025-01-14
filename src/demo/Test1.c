@@ -17,9 +17,6 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
-
 #define ARRAY_SIZE            64
 
 volatile unsigned char CPU_RO_Array[ARRAY_SIZE] __attribute__ ((aligned(ARRAY_SIZE)));

@@ -366,8 +366,8 @@ void iopmp_write_entry(IOPMP_RegDef *iopmp_reg,int entry, unsigned int mode,  vo
 		addr = NAPOT(addr, size);
 	}
 
-	iopmp_reg->ENTRY[entry].ADDR = addr & 0xFFFFFFFF;
-	iopmp_reg->ENTRY[entry].CFG = (cfg | mode << ENTRY_CFG_A);
+	((ENTRY_RegDef *)((long)iopmp_reg + iopmp_reg->OFFSET))[entry].ADDR = addr & 0xFFFFFFFF;
+	((ENTRY_RegDef *)((long)iopmp_reg + iopmp_reg->OFFSET))[entry].CFG = (cfg | mode << ENTRY_CFG_A);
 }
 
 void iopmp_napot_config(IOPMP_RegDef *iopmp_reg, unsigned int entry, void* va, unsigned long size, int pmpcfg)

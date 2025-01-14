@@ -15,11 +15,8 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
 
 #define ARRAY_SIZE            64
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 

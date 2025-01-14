@@ -13,14 +13,9 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
-#define DMA_RRID              1
-
 #define DMA_MD                4
 
 #define ARRAY_SIZE            32
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 
@@ -40,7 +35,7 @@ RISCV_IOPMP_OPS *iopmp_ops;
 extern RISCV_IOPMP_OPS riscv_iopmp_ops;
 int CPU_MD[] = {0, 1, 2};
 
-#define IOPMPDMA_STATUS_COMPLETE 1
+#define DMA_STATUS_COMPLETE 1
 #define DMA_STATUS_ERROR    2
 
 void iopmp_irq_init() {
@@ -198,7 +193,7 @@ int main(void)
 	/* 0x0 ~ 0xFFFFFFFF, executable, writable, readable */
 	iopmp_ops->napot_config(DEV_IOPMP0, CPU_MD[0] * iopmp_k, (void *)0, 0xFFFFFFFF, ENTRY_CFG_XWR(ENTRY_X_ON, ENTRY_W_ON, ENTRY_R_ON));
 
-        iopmp_ops->srcmd_add_md(DEV_IOPMP0, DMA_RRID, 4);
+        iopmp_ops->srcmd_add_md(DEV_IOPMP0, DMA_RRID, DMA_MD);
 	/* config half array size permission */
 	iopmp_ops->napot_config(DEV_IOPMP0, DMA_MD * iopmp_k, (void *)DMA_RO_Array, ARRAY_SIZE/2, ENTRY_CFG_XWR(ENTRY_X_OFF, ENTRY_W_OFF, ENTRY_R_ON));
 	iopmp_ops->napot_config(DEV_IOPMP0, DMA_MD * iopmp_k + 1, (void *)DMA_WO_Array, ARRAY_SIZE/2, ENTRY_CFG_XWR(ENTRY_X_OFF, ENTRY_W_ON, ENTRY_R_OFF));

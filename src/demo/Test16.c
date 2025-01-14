@@ -13,12 +13,7 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
-#define DMA_RRID              1
-
 #define ARRAY_SIZE            64
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 
@@ -35,7 +30,7 @@ RISCV_IOPMP_OPS *iopmp_ops;
 extern RISCV_IOPMP_OPS riscv_iopmp_ops;
 int CPU_MD[] = {0, 1, 2};
 
-#define IOPMPDMA_STATUS_COMPLETE 1
+#define DMA_STATUS_COMPLETE 1
 #define DMA_STATUS_ERROR    2
 
 void iopmp_irq_init() {
@@ -175,7 +170,7 @@ int main(void)
 	no_w = iopmp_ops->get_no_w(DEV_IOPMP1);
 	printf("no_w %d\n", no_w);
 
-	TEST_RW_Ptr = (unsigned char *)(RAM_BASE + 0x4000000);
+	TEST_RW_Ptr = (unsigned char *)(IOPMP1_REGION_BASE);
 	for(int i=0; i<0x100; i++){
 		*(TEST_RW_Ptr + i) = i;
 	}

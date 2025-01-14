@@ -15,11 +15,8 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
 
 #define ARRAY_SIZE            64
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 
@@ -186,8 +183,8 @@ int main(void)
 	no_x = iopmp_ops->get_no_x(DEV_IOPMP1);
 	printf("no_x %d\n", no_x);
 	printf("Prepare EXEC region data\n");
-	/* IOPMP1 checks (RAM_BASE + 0x4000000) ~ 0xFFFFFFFF in layout 1*/
-	CPU_EXEC_Ptr = (unsigned char *)(RAM_BASE + 0x4000000);
+	/* IOPMP1 checks (IOPMP1_REGION_BASE) ~ 0xFFFFFFFF in layout 1*/
+	CPU_EXEC_Ptr = (unsigned char *)(IOPMP1_REGION_BASE);
 	extern unsigned char function_start, function_end;
 	char *pDes = (char*)CPU_EXEC_Ptr;
 	char *pSrc = (char*)&function_start;

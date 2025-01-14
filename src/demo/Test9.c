@@ -15,11 +15,8 @@
 
 #define USE_NAPOT             0
 
-/* RRID list */
-#define CPU_RRID              0
 
 #define ARRAY_SIZE            64
-#define RAM_BASE              0x80000000
 
 typedef void (*fun_ptr)(void*);
 
@@ -170,7 +167,7 @@ int main(void)
 	no_w = iopmp_ops->get_no_w(DEV_IOPMP1);
 	printf("no_w %d\n", no_w);
 
-	CPU_Write_Ptr = (unsigned char *)(RAM_BASE + 0x4000000);
+	CPU_Write_Ptr = (unsigned char *)(IOPMP1_REGION_BASE);
 
 	if (mdcfg_fmt == 0) {
 		iopmp_k = ENTRY_NUM_PER_MD;

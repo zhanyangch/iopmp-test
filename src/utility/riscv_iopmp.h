@@ -97,10 +97,7 @@ typedef struct {
     volatile unsigned int MDCFG[63];                    /* 0x800 ~ 0x8F4 */
              unsigned int RESERVED6[449];               /* 0x8F8 ~ 0xFFC */
              SRCMD_RegDef SRCMD[256];                   /* 0x1000 ~ 0x2FF4 */
-             unsigned int RESERVED7[1024];              /* 0x2FF8 ~ 0x3FFC */
-             ENTRY_RegDef ENTRY[512];                   /* 0x4000 ~ 0x600C */
 } IOPMP_RegDef;
-
 
 /* General Functions */
 int iopmp_get_imp(IOPMP_RegDef *iopmp_reg);

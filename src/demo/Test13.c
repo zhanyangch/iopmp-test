@@ -18,8 +18,6 @@
 #define USE_NAPOT             0
 #define IOPMP_MSI_RRID        0
 
-/* RRID list */
-#define CPU_RRID              0
 
 #define ARRAY_SIZE            64
 
@@ -315,6 +313,7 @@ int main(void)
 	expect_exception_cause = TRAP_M_S_ACC_FAULT;
 	asm volatile("" ::: "memory");
 	*(volatile unsigned int *)&CPU_RO_Array[0] = 0x7777CCCC;
+	//TODO: BWEI
 	while (!bus_error_done || !iopmp_isr_done);
 	if (*(volatile unsigned int *)&CPU_RO_Array == 0x7777CCCC) {
 		printf("Failure: RO Data %x\n", data);
