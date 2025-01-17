@@ -6,8 +6,6 @@ import os
 import termios
 
 # Example usage
-telent_host = "127.0.0.1"  # Replace with your server IP
-telent_port = 3456           # Replace with the appropriate telent_port
 output_file = "test_output.txt"  # File to save the output
 qemu_folder = "~/qemu"
 testcase_folder = "~/iopmp-test"
