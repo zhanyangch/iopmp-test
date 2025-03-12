@@ -1,7 +1,7 @@
 Requirement: Toolchain support "with-cmodel=medany"
 
 1. Get QEMU IOPMP test branch
-	git clone -b iopmp_patch_v9_test https://github.com/zhanyangch/qemu.git
+	git clone -b iopmp_patch_test https://github.com/zhanyangch/qemu.git
 2. build qemu
 	cd <qemu>
 	./configure --target-list=riscv64-softmmu
